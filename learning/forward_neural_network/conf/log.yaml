@@ -1,0 +1,29 @@
+version: 1.0
+
+formatters:
+  classic_formatter:
+    format: '%(asctime)s %(filename)s[line:%(lineno)d] [%(levelname)s] %(message)s'
+    datefmt: '%a, %d %b, %Y, %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: classic_formatter
+    stream: ext://sys.stdout
+
+  file_handler:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: DEBUG
+    formatter: classic_formatter
+    when: D
+    interval: 1
+    backupCount: 20
+    filename: log
+
+root:
+  level: DEBUG
+  handlers:
+    - console
+    - file_handler
+  propagate: 0
